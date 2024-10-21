@@ -1,0 +1,26 @@
+#webclient:
+#  base-url: https://cbu.uz/ru/arkhiv-kursov-valyut/json/
+db:
+  url: postgresql://localhost:5432/currency_db
+  username: postgres
+spring:
+  r2dbc:
+    username: ${db.username}
+    password: 1
+    url: r2dbc:${db.url}
+  liquibase:
+    url: jdbc:${db.url}
+    user: ${db.username}
+    password: 1
+    change-log: classpath:db/changelog/db.changelog-currency.xml
+    enabled: true
+logging:
+  level:
+    org.springframework.r2dbc.core: DEBUG
+    liquibase: DEBUG
+api:
+  currency:
+    base-url: https://cbu.uz/ru/arkhiv-kursov-valyut/json/
+currency-provider:
+  impl: cbu
+
